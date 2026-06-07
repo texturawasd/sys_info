@@ -16,6 +16,7 @@ const char *get_os_pretty_name(void) {
     return NULL;
 }
 
+/*
 const char *get_hostname(void) {
     static char hostname[HOST_NAME_MAX + 1];
 
@@ -24,11 +25,12 @@ const char *get_hostname(void) {
     }
     return NULL;
 }
-
+*/
 
 int main(void) {
     const char *user = getenv("USER");
-    const char *host = get_hostname();
+    static char hostname[512];
+    const char *host = gethostname(hostname, sizeof(hostname)) ? hostname : NULL;
 
     struct utsname u;
     if (uname(&u) == 0) {
